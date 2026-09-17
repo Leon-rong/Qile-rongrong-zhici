@@ -6,8 +6,12 @@
   <meta name="theme-color" content="#1a1a1a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>新晟英语 · 植词</title>
+  <title>其乐嵘戎 植词</title>
   <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-title" content="植词" />
+  <meta name="description" content="其乐嵘戎 植词 — 基于 SM-2 间隔重复的 Cambridge Power Up 0-6 词汇学习工具" />
   <style>
     /* ═════════════════════════════════════════════════════════
        THEME: 深色暖金 · 高级质感 · ComeKey 风格
@@ -2348,7 +2352,7 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
           <path d="M18 46 Q34 32 54 24 Q56 30 50 36 Q38 44 18 46 Z" fill="#7fc1e8" />
         </svg>
       </span>
-      <span class="logo-text">新晟英语</span>
+      <span class="logo-text">其乐嵘戎</span>
       <span class="logo-sub">XinSheng English</span>
     </div>
     <div class="header-right">
@@ -2364,7 +2368,7 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
     <!-- Dashboard -->
     <div class="page active" id="page-dashboard">
       <div class="dash-welcome" id="dashWelcome">
-        <span class="welcome-text" id="welcomeText">你好，新晟学子</span>
+        <span class="welcome-text" id="welcomeText">你好，同学</span>
         <span class="welcome-time" id="welcomeTime"></span>
       </div>
       <div class="dash-hero">
@@ -2557,18 +2561,33 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
           <div style="font-size:18px;color:var(--text-muted)">↓</div>
         </div>
       </div>
+      <div class="settings-group" style="margin-top:16px">
+        <div class="settings-row" style="cursor:pointer" id="cloudSyncRow">
+          <div>
+            <div class="sl-label">☁️ 云同步</div>
+            <div class="sl-sub" id="cloudSyncSub">未登录 · 进度仅存本机</div>
+          </div>
+          <div style="font-size:18px;color:var(--text-muted)">→</div>
+        </div>
+        <div id="cloudSyncActions" style="display:none;padding:0 16px 14px;gap:8px;flex-wrap:wrap">
+          <button class="import-btn" id="cloudPullBtn" style="flex:1;min-width:120px">⬇️ 拉取云端进度</button>
+          <button class="import-btn" id="cloudPushBtn" style="flex:1;min-width:120px">⬆️ 上传本机进度</button>
+          <button class="import-btn" id="cloudLogoutBtn" style="flex:1;min-width:120px;opacity:.75">🚪 退出登录</button>
+          <div style="width:100%;font-size:11px;color:var(--text-muted);margin-top:6px" id="cloudSyncHint"></div>
+        </div>
+      </div>
       <div class="settings-group" style="margin-top:16px;padding:16px;text-align:center;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);">
         <div style="font-size:12px;color:var(--text-secondary)">其乐嵘戎 植词 v3.0 · 基于 SM-2 间隔重复</div>
         <div style="font-size:11px;color:var(--accent);margin-top:6px;">✨ 快乐学习，其乐嵘戎 ✨</div>
       </div>
-      <!-- 新晟教育 logo -->
+      <!-- 其乐嵘戎 logo -->
       <div class="xs-logo-full">
         <svg viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M22 64 Q12 46 26 26 Q38 12 56 14 Q50 30 42 42 Q34 54 22 64 Z" fill="#7fd99a" />
           <path d="M30 62 Q34 38 46 18 Q56 8 68 10 Q60 28 52 42 Q44 54 30 62 Z" fill="#ffd479" />
           <path d="M24 60 Q60 38 96 24 Q100 32 90 42 Q70 54 24 60 Z" fill="#7fc1e8" />
           <text x="110" y="38" font-family="Microsoft YaHei, sans-serif" font-size="26" font-weight="700"
-            fill="currentColor">新晟英语</text>
+            fill="currentColor">其乐嵘戎</text>
           <text x="110" y="60" font-family="Georgia, serif" font-style="italic" font-size="14" fill="currentColor"
             opacity="0.85">XinSheng English</text>
         </svg>
@@ -2643,6 +2662,23 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
       <div class="celeb-title" id="celebTitle">连续打卡 7 天！</div>
       <div class="celeb-sub" id="celebSub">坚持就是力量，继续保持！</div>
       <button class="celeb-close" id="celebClose">太棒了！</button>
+    </div>
+  </div>
+
+  <!-- ═══ 云同步登录弹窗 ═══ -->
+  <div id="cloudModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px">
+    <div style="width:100%;max-width:360px;background:var(--bg-card,#1a1a1a);border:1px solid var(--border,#333);border-radius:16px;padding:22px;box-shadow:0 24px 60px rgba(0,0,0,.6)">
+      <div style="font-size:18px;font-weight:700;margin-bottom:4px">☁️ 登录以同步进度</div>
+      <div style="font-size:12px;color:var(--text-muted,#999);margin-bottom:16px">一个账号，多设备共享学习进度</div>
+      <input id="cloudUser" type="text" autocomplete="username" placeholder="账号" value="qile-zhici"
+        style="width:100%;padding:11px 12px;margin-bottom:10px;border-radius:10px;border:1px solid var(--border,#444);background:var(--bg,#111);color:var(--text,#eee);font-size:14px;box-sizing:border-box" />
+      <input id="cloudPass" type="password" autocomplete="current-password" placeholder="密码"
+        style="width:100%;padding:11px 12px;margin-bottom:14px;border-radius:10px;border:1px solid var(--border,#444);background:var(--bg,#111);color:var(--text,#eee);font-size:14px;box-sizing:border-box" />
+      <div style="display:flex;gap:10px">
+        <button id="cloudCancel" style="flex:1;padding:11px;border-radius:10px;border:1px solid var(--border,#444);background:transparent;color:var(--text-secondary,#bbb);cursor:pointer;font-size:14px">取消</button>
+        <button id="cloudLoginBtn" style="flex:1;padding:11px;border-radius:10px;border:none;background:var(--accent,#d4a574);color:#111;font-weight:700;cursor:pointer;font-size:14px">登录</button>
+      </div>
+      <div id="cloudErr" style="display:none;margin-top:12px;font-size:12px;color:#ff7b72;line-height:1.5"></div>
     </div>
   </div>
 
@@ -2872,7 +2908,7 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
     }
 
     // ─── 数据持久化 ────────────────────────────────────
-    function saveProgress(id) { if (db) dbPut('progress', progressMap[id]).catch(() => {}); }
+    function saveProgress(id) { if (db) dbPut('progress', progressMap[id]).catch(() => {}); try { cloudMarkDirty(); } catch (e) {} }
 
     function saveStats() {
       const record = { key: 'main', ...stats };
@@ -4498,6 +4534,317 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
       })
     }
 
+    // ══════════════════════════════════════════════════════════════
+    //  ☁️ 云同步（CloudBase）· 单账号 · 本地优先 · 断网可降级
+    //     合并策略：按 rev（复习次数）逐词取新，学习历史永不回退
+    // ══════════════════════════════════════════════════════════════
+    var CLOUD_ENV = 'quanquan-life-d2g1f5ayyae604fcd';
+    var CLOUD_COLL = 'zhici_progress';
+    var CLOUD_DOC = 'main';
+    var GK = ['zv_xp', 'zv_combo', 'zv_max_combo', 'zv_badges', 'zv_badge_counts', 'zv_mistake_count',
+      'zv_max_mistake_streak', 'zv_spell_total', 'zv_sent_total', 'zv_vocab_total', 'zv_live_words',
+      'zv_live_auto_words', 'zv_modes', 'zv_book_done', 'zv_live_entered', 'zv_sessions', 'zv_streak', 'zv_last_date'];
+    var cloud = { app: null, auth: null, db: null, user: null, busy: false, signed: false, dirty: false };
+
+    function cloudToast(msg) {
+      try { if (typeof showToast === 'function') { showToast(msg); return; } } catch (e) {}
+      console.log('[cloud]', msg);
+    }
+    function cloudMarkDirty() { cloud.dirty = true; }
+
+    function loadCloudSDK() {
+      return new Promise(function (resolve, reject) {
+        if (window.__CB_READY__ && window.cloudbase) return resolve();
+        var s = document.createElement('script');
+        s.src = './vendor/cloudbase.js';
+        s.async = true;
+        s.onload = function () { window.cloudbase ? resolve() : reject(new Error('CloudBase SDK 未挂载')); };
+        s.onerror = function () { reject(new Error('CloudBase SDK 加载失败（文件缺失或网络中断）')); };
+        document.head.appendChild(s);
+      });
+    }
+
+    async function cloudInit() {
+      if (cloud.app) return cloud.app;
+      await loadCloudSDK();
+      var cb = window.cloudbase;
+      if (!cb) throw new Error('CloudBase SDK 加载失败');
+      cloud.app = cb.init({ env: CLOUD_ENV, region: 'ap-shanghai' });
+      cloud.auth = cloud.app.auth({ persistence: 'local' });
+      cloud.db = cloud.app.database();
+      return cloud.app;
+    }
+
+    function localSnapshot() {
+      var p = {};
+      try {
+        for (var k in progressMap) {
+          var r = progressMap[k];
+          if (r && (r.rev > 0 || r.iv > 0)) p[k] = { id: r.id, ef: r.ef, iv: r.iv, next: r.next, rev: r.rev };
+        }
+      } catch (e) { console.warn('[cloud] snapshot progress failed', e); }
+      var gs = {};
+      for (var i = 0; i < GK.length; i++) { var v = localStorage.getItem(GK[i]); if (v !== null) gs[GK[i]] = v; }
+      var st = {};
+      try { st = JSON.parse(JSON.stringify(settings || {})); } catch (e) {}
+      return { progress: p, gamify: gs, settings: st, updatedAt: Date.now() };
+    }
+
+    function mergeProgress(local, remote) {
+      var out = {}, ids = {}, gained = 0;
+      for (var k in local) ids[k] = 1;
+      for (var k in remote) ids[k] = 1;
+      for (var k in ids) {
+        var a = local[k], b = remote[k];
+        if (!a) { out[k] = b; gained++; continue; }
+        if (!b) { out[k] = a; continue; }
+        var ra = a.rev || 0, rb = b.rev || 0;
+        if (rb > ra) { out[k] = b; gained++; }
+        else if (ra > rb) { out[k] = a; }
+        else { out[k] = ((b.next || 0) > (a.next || 0)) ? b : a; }
+      }
+      return { merged: out, gained: gained };
+    }
+
+    function mergeGamify(local, remote) {
+      var out = {}, keys = {};
+      for (var k in local) keys[k] = 1;
+      for (var k in remote) keys[k] = 1;
+      for (var k in keys) {
+        var a = local[k], b = remote[k];
+        if (a === undefined) { out[k] = b; continue; }
+        if (b === undefined) { out[k] = a; continue; }
+        var na = parseFloat(a), nb = parseFloat(b);
+        if (!isNaN(na) && !isNaN(nb) && String(na) === String(a).trim() && String(nb) === String(b).trim()) {
+          out[k] = String(Math.max(na, nb)); continue;
+        }
+        var ja = null, jb = null;
+        try { ja = JSON.parse(a); } catch (e) {}
+        try { jb = JSON.parse(b); } catch (e) {}
+        if (Array.isArray(ja) && Array.isArray(jb)) {
+          var seen = {}, arr = [];
+          ja.concat(jb).forEach(function (x) {
+            var s = (typeof x === 'object') ? JSON.stringify(x) : String(x);
+            if (!seen[s]) { seen[s] = 1; arr.push(x); }
+          });
+          out[k] = JSON.stringify(arr); continue;
+        }
+        if (ja && jb && typeof ja === 'object' && typeof jb === 'object' && !Array.isArray(ja) && !Array.isArray(jb)) {
+          var o = {};
+          for (var m in ja) o[m] = ja[m];
+          for (var m in jb) o[m] = Math.max(+ja[m] || 0, +jb[m] || 0);
+          out[k] = JSON.stringify(o); continue;
+        }
+        out[k] = a;
+      }
+      return out;
+    }
+
+    function applySnapshot(snap) {
+      var cnt = 0;
+      if (snap && snap.progress) {
+        for (var k in snap.progress) {
+          var r = snap.progress[k]; if (!r) continue;
+          progressMap[k] = { id: r.id, ef: r.ef, iv: r.iv, next: r.next, rev: r.rev };
+          if (db) { try { dbPut('progress', progressMap[k]).catch(function () {}); } catch (e) {} }
+          cnt++;
+        }
+      }
+      if (snap && snap.gamify) {
+        for (var g in snap.gamify) { try { localStorage.setItem(g, snap.gamify[g]); } catch (e) {} }
+      }
+      if (snap && snap.settings) {
+        try { settings = Object.assign({}, settings || {}, snap.settings); saveSettings(); } catch (e) {}
+      }
+      return cnt;
+    }
+
+    async function cloudGetDoc() {
+      var d = null;
+      try {
+        var res = await cloud.db.collection(CLOUD_COLL).doc(CLOUD_DOC).get();
+        d = (res && res.data && res.data[0]) ? res.data[0] : null;
+      } catch (e) {
+        var code = (e && (e.code || (e.errorCode))) || '';
+        if (!/NOT_FOUND|not found/i.test(code + ' ' + ((e && e.message) || ''))) throw e;
+        d = null; // 首次使用，云端还没有文档
+      }
+      if (!d) return null;
+      return { progress: d.progress || {}, gamify: d.gamify || {}, settings: d.settings || {}, updatedAt: d.updatedAt || 0 };
+    }
+
+    async function cloudSetDoc(data) {
+      var col = cloud.db.collection(CLOUD_COLL);
+      var payload = { progress: data.progress, gamify: data.gamify, settings: data.settings, updatedAt: Date.now() };
+      try {
+        await col.doc(CLOUD_DOC).set(payload);
+      } catch (e) {
+        payload._id = CLOUD_DOC;
+        await col.add(payload);
+      }
+    }
+
+    async function cloudLogin(u, p) {
+      await cloudInit();
+      var fn = cloud.auth.signInWithPassword ? 'signInWithPassword' : 'signInWithUsernameAndPassword';
+      await cloud.auth[fn]({ username: u, password: p });
+      cloud.signed = true;
+      localStorage.setItem('zv_cloud_signed', '1');
+      try { cloud.user = await cloud.auth.getUserInfo(); } catch (e) { cloud.user = { name: u }; }
+      return cloud.user;
+    }
+
+    async function cloudRestore() {
+      if (localStorage.getItem('zv_cloud_signed') !== '1') return null;
+      try {
+        await cloudInit();
+        var st = await cloud.auth.getLoginState();
+        if (!st) return null;
+        cloud.signed = true;
+        try { cloud.user = await cloud.auth.getUserInfo(); } catch (e) {}
+        return cloud.user;
+      } catch (e) { console.warn('[cloud] 会话恢复失败', e); return null; }
+    }
+
+    async function cloudLogout() {
+      try { if (cloud.auth) await cloud.auth.signOut(); } catch (e) {}
+      cloud.signed = false; cloud.user = null;
+      localStorage.removeItem('zv_cloud_signed');
+      cloudToast('已退出云同步');
+      renderCloudUI();
+    }
+
+    /** 双向同步：下载 → 合并 → 写回本地 → 上传合并结果 */
+    async function cloudSync(opt) {
+      opt = opt || {};
+      if (cloud.busy) return { ok: false, msg: '同步进行中' };
+      cloud.busy = true;
+      try {
+        await cloudInit();
+        var remote = await cloudGetDoc();
+        var local = localSnapshot();
+        var rp = (remote && remote.progress) || {};
+        var rg = (remote && remote.gamify) || {};
+        var mergedP = mergeProgress(local.progress, rp).merged;
+        var mergedG = mergeGamify(local.gamify, rg);
+        var merged = { progress: mergedP, gamify: mergedG, settings: local.settings, updatedAt: Date.now() };
+        var gained = 0;
+        for (var k in rp) if (!local.progress[k]) gained++;
+        applySnapshot(merged);
+        if (!opt.pullOnly) await cloudSetDoc(merged);
+        cloud.dirty = false;
+        var total = 0; for (var k in mergedP) total++;
+        return { ok: true, total: total, gained: gained, uploaded: !opt.pullOnly };
+      } catch (e) {
+        console.error('[cloud] 同步失败', e);
+        var msg = (e && e.message) ? e.message : String(e);
+        if (/network|Failed to fetch|CORS|NetworkError/i.test(msg)) msg = '网络/跨域失败：当前域名可能未在云开发安全域名白名单中';
+        return { ok: false, msg: msg };
+      } finally { cloud.busy = false; }
+    }
+
+    function renderCloudUI() {
+      var sub = document.getElementById('cloudSyncSub');
+      var box = document.getElementById('cloudSyncActions');
+      var hint = document.getElementById('cloudSyncHint');
+      if (!sub) return;
+      if (cloud.signed) {
+        sub.textContent = '已登录 · 进度可在多设备间同步';
+        if (box) box.style.display = 'flex';
+        if (hint) hint.textContent = '提示：合并按每个词的学习次数取新，不会覆盖更多的一方。';
+      } else {
+        sub.textContent = '未登录 · 进度仅存本机';
+        if (box) box.style.display = 'none';
+        if (hint) hint.textContent = '';
+      }
+    }
+
+    function openCloudModal() {
+      var m = document.getElementById('cloudModal');
+      var err = document.getElementById('cloudErr');
+      if (err) { err.style.display = 'none'; err.textContent = ''; }
+      if (m) { m.style.display = 'flex'; var u = document.getElementById('cloudUser'); if (u) setTimeout(function () { u.focus(); }, 50); }
+    }
+    function closeCloudModal() { var m = document.getElementById('cloudModal'); if (m) m.style.display = 'none'; }
+
+    (function bindCloudUI() {
+      var row = document.getElementById('cloudSyncRow');
+      var lg = document.getElementById('cloudLoginBtn');
+      var cc = document.getElementById('cloudCancel');
+      var pull = document.getElementById('cloudPullBtn');
+      var push = document.getElementById('cloudPushBtn');
+      var lo = document.getElementById('cloudLogoutBtn');
+      var err = document.getElementById('cloudErr');
+
+      if (row) row.addEventListener('click', function () {
+        if (cloud.signed) {
+          var box = document.getElementById('cloudSyncActions');
+          if (box) box.style.display = (box.style.display === 'none' || !box.style.display) ? 'flex' : 'none';
+        } else openCloudModal();
+      });
+      if (cc) cc.addEventListener('click', closeCloudModal);
+      var modalEl = document.getElementById('cloudModal');
+      if (modalEl) modalEl.addEventListener('click', function (e) { if (e.target === modalEl) closeCloudModal(); });
+
+      if (lg) lg.addEventListener('click', async function () {
+        var u = (document.getElementById('cloudUser') || {}).value || '';
+        var p = (document.getElementById('cloudPass') || {}).value || '';
+        if (!u.trim() || !p) { if (err) { err.style.display = 'block'; err.textContent = '请填写账号与密码'; } return; }
+        lg.disabled = true; lg.textContent = '登录中…';
+        if (err) { err.style.display = 'none'; }
+        try {
+          await cloudLogin(u.trim(), p);
+          closeCloudModal();
+          renderCloudUI();
+          cloudToast('登录成功，正在同步…');
+          var r = await cloudSync({});
+          if (r.ok) { cloudToast('已同步 ' + r.total + ' 条学习记录'); setTimeout(function () { location.reload(); }, 900); }
+          else cloudToast('登录成功，但同步失败：' + r.msg);
+        } catch (e) {
+          var msg = (e && e.message) ? e.message : String(e);
+          if (/network|Failed to fetch|CORS|NetworkError/i.test(msg)) msg = '网络/跨域失败：当前访问域名未在云开发安全域名白名单中，请联系管理员添加。';
+          if (err) { err.style.display = 'block'; err.textContent = '登录失败：' + msg; }
+        } finally { lg.disabled = false; lg.textContent = '登录'; }
+      });
+
+      if (pull) pull.addEventListener('click', async function () {
+        pull.disabled = true; pull.textContent = '拉取中…';
+        var r = await cloudSync({ pullOnly: true });
+        pull.disabled = false; pull.textContent = '⬇️ 拉取云端进度';
+        if (r.ok) { cloudToast('已合并 ' + r.total + ' 条记录（新增 ' + r.gained + '）'); setTimeout(function () { location.reload(); }, 900); }
+        else cloudToast('拉取失败：' + r.msg);
+      });
+
+      if (push) push.addEventListener('click', async function () {
+        push.disabled = true; push.textContent = '上传中…';
+        var r = await cloudSync({});
+        push.disabled = false; push.textContent = '⬆️ 上传本机进度';
+        if (r.ok) cloudToast('已同步 ' + r.total + ' 条记录到云端');
+        else cloudToast('上传失败：' + r.msg);
+      });
+
+      if (lo) lo.addEventListener('click', cloudLogout);
+    })();
+
+    // 自动：恢复会话 → 静默同步；之后每 90 秒若有改动则同步一次
+    (function cloudAuto() {
+      setTimeout(async function () {
+        try {
+          var u = await cloudRestore();
+          renderCloudUI();
+          if (u) {
+            var r = await cloudSync({});
+            if (r.ok && r.gained > 0) { cloudToast('已从云端合并 ' + r.gained + ' 条新进度'); }
+          }
+        } catch (e) { console.warn('[cloud] auto sync skipped', e); }
+        setInterval(function () {
+          if (cloud.signed && cloud.dirty && !cloud.busy && navigator.onLine) {
+            cloudSync({}).then(function (r) { if (r && r.ok) console.log('[cloud] 后台自动同步完成', r.total); });
+          }
+        }, 90000);
+      }, 2500);
+    })();
+
     // ─── PWA ──────────────────────────────────────────
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -4780,7 +5127,7 @@ body.live-on .word-card{ border-color:rgba(124,92,255,.5); box-shadow:0 0 50px r
         guide.classList.add('show'); setTimeout(()=>guide.classList.remove('show'), 6000);
       }
       function openingRitual(){
-        doBanner('🎯 新晟英语 · 单词擂台 开始！', '#39d0ff');
+        doBanner('🎯 单词擂台 开始！', '#39d0ff');
         beep([523,659,784,1047],0.16,'square');
         if(captionEl){ captionEl.textContent='欢迎来到直播间，一起背单词！📣'; captionEl.classList.remove('show'); void captionEl.offsetWidth; captionEl.classList.add('show'); }
       }
